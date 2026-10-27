@@ -1,0 +1,12 @@
+{{template "head" "Campaigns"}}
+{{range .Campaigns}}
+<div class="card">
+  <h2><a href="/c/{{.ID}}">{{.Title}}</a></h2>
+  <div class="bar"><div style="width:{{pct .Raised .Goal}}%"></div></div>
+  <div class="muted">{{bdx .Raised}} of {{bdx .Goal}} BDX · {{len .Donations}} donations</div>
+</div>
+{{else}}
+<div class="card muted">No campaigns yet. Create one with <code>bdxfund new</code>.</div>
+{{end}}
+{{template "audit" .Audit}}
+{{template "foot"}}

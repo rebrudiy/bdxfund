@@ -1,0 +1,29 @@
+{{template "head" .Title}}
+<div class="card">
+  <h1>{{.Title}}</h1>
+  <p>{{.Description}}</p>
+  <div class="bar"><div style="width:{{pct .Raised .Goal}}%"></div></div>
+  <div><b>{{bdx .Raised}}</b> of {{bdx .Goal}} BDX raised{{if .Pending}} <span class="pending">· {{bdx .Pending}} pending</span>{{end}}</div>
+  <div class="muted">{{if .Updated.IsZero}}waiting for first wallet sync{{else}}updated {{ago .Updated}} ago{{end}}</div>
+</div>
+
+<div class="card">
+  <h2>Donate</h2>
+  <p class="muted">Send BDX to this campaign's address. Use <b>Flash</b> in your wallet and it shows up here in seconds.</p>
+  <div class="mono">{{.Address}}</div>
+</div>
+
+<div class="card">
+  <h2>Donations</h2>
+  {{if .Donations}}
+  <table>
+    <tr><th>Amount</th><th>Status</th><th>When</th></tr>
+    {{range .Donations}}
+    <tr><td>{{bdx .Amount}} BDX</td><td><span class="tag {{.Status}}">{{.Status}}</span></td><td class="muted">{{ago .Time}} ago</td></tr>
+    {{end}}
+  </table>
+  <p class="muted">Senders are never shown. Beldex hides them on-chain, so this site doesn't know them either.</p>
+  {{else}}<p class="muted">No donations yet.</p>{{end}}
+</div>
+{{template "audit" .Audit}}
+{{template "foot"}}
